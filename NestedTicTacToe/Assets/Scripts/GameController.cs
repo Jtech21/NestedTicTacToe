@@ -22,7 +22,8 @@ public class PlayerColor
 
 public class GameController : MonoBehaviour
 {
-    public Text[] buttonList;
+	//make a new array of arrays here   -the arrays will be held in the boardspaces
+	public BoardSpace[] boardList;
 	private string playerSide;
 
 	public GameObject gameOverPanel;
@@ -42,18 +43,18 @@ public class GameController : MonoBehaviour
 	{
 		gameOverPanel.SetActive(false);
 		SetGameContollerReferanceOnButtons();
-		//playerSide = "X";
 		movecount = 0;
 		restartButton.SetActive(false);
-		//SetPlayerColors(playerX, playerO);
 	}
 
+
+	//Change to work with new system
 	void SetGameContollerReferanceOnButtons()
     { 
-        for (int i =0; i <buttonList.Length; i++)
-		{
-            buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReferance(this);
-		}
+  //      for (int i =0; i <buttonList.Length; i++)
+		//{
+  //          buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReferance(this);
+		//}
     }
 
 	public void SetStartingSide(string startingSide)
@@ -83,64 +84,66 @@ public class GameController : MonoBehaviour
 		return playerSide;
 	}
 
+	
+	//rewrite to check if boardspaces are 3 in a row or there are no more moves
 	public void EndTurn()
 	{
-		movecount++;
+		//movecount++;
 		
-		//check top row
-		if(buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check middle row
-		else if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check bottom row
-		else if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
+		////check top row
+		//if(buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check middle row
+		//else if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check bottom row
+		//else if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
 
-		//check top col
-		else if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check middle row
-		else if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check bottom row
-		else if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
+		////check top col
+		//else if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check middle row
+		//else if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check bottom row
+		//else if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
 
-		//check topleft to bottomright
-		else if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check bottomleft to topright
-		else if (buttonList[6].text == playerSide && buttonList[4].text == playerSide && buttonList[2].text == playerSide)
-		{
-			GameOver(playerSide);
-		}
-		//check draw
-		else if(movecount >= 9)
-		{
-			GameOver("draw");
+		////check topleft to bottomright
+		//else if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check bottomleft to topright
+		//else if (buttonList[6].text == playerSide && buttonList[4].text == playerSide && buttonList[2].text == playerSide)
+		//{
+		//	GameOver(playerSide);
+		//}
+		////check draw
+		//else if(movecount >= 9)
+		//{
+		//	GameOver("draw");
 
-			//maybe add something here to set both players to not active color???
-		}
-		//Debug.Log("EndTurn is not implemented!");
-		else
-		{
-			ChangeSides();
-		}
+		//	//maybe add something here to set both players to not active color???
+		//}
+		////Debug.Log("EndTurn is not implemented!");
+		//else
+		//{
+		//	ChangeSides();
+		//}
 	}
 
 	void SetPlayerColors(Player newPlayer, Player oldPlayer)
@@ -188,33 +191,33 @@ public class GameController : MonoBehaviour
 		gameOvertext.text = value;
 	}
 
+	//rewrite to work with boardspaces
 	public void RestartGame()
 	{
-		//playerSide = "X";
 		movecount = 0;
 		gameOverPanel.SetActive(false);
 		restartButton.SetActive(false);
 		SetPlayerButtons(true);
 		SetPlayerColorsInactive();
 		startInfo.SetActive(true);
-		
 
-		for (int i = 0; i < buttonList.Length; i++)
-		{
-			buttonList[i].text = "";
-		}
 
-		//SetPlayerColors(playerX, playerO);
+		//for (int i = 0; i < buttonList.Length; i++)
+		//{
+		//	buttonList[i].text = "";
+		//}
 
-		
+
 	}
 
+	
+	//rewrite to work with boardspaces
 	void SetBoardInteractable(bool toggle)
 	{
-		for (int i = 0; i < buttonList.Length; i++)
-		{
-			buttonList[i].GetComponentInParent<Button>().interactable = toggle;
-		}
+		//for (int i = 0; i < buttonList.Length; i++)
+		//{
+		//	buttonList[i].GetComponentInParent<Button>().interactable = toggle;
+		//}
 	}
 
 	void SetPlayerButtons(bool toggle)
