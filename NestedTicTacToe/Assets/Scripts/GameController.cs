@@ -50,12 +50,12 @@ public class GameController : MonoBehaviour
 
 	//Change to work with new system
 	void SetGameContollerReferanceOnButtons()
-    { 
-  //      for (int i =0; i <buttonList.Length; i++)
-		//{
-  //          buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReferance(this);
-		//}
-    }
+    {
+		for (int i = 0; i < boardList.Length; i++)
+		{
+			boardList[i].GetComponentInParent<GridSpace>().SetGameControllerReferance(this);
+		}
+	}
 
 	public void SetStartingSide(string startingSide)
 	{
